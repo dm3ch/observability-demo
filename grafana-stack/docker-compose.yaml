@@ -1,0 +1,45 @@
+version: "3"
+
+networks:
+  loki:
+
+services:
+  synthetic-load-generator:
+    image: omnition/synthetic-load-generator:1.0.25
+    volumes:
+      - ../configs/load-generator/load-generator.json:/etc/load-generator.json
+      - logs:/log
+    environment:
+      - TOPOLOGY_FILE=/etc/load-generator.json
+    command: sh -c "/opt/omnition/start.sh 2>&1 | tee /log/log"
+    networks:
+      - loki
+
+  loki:
+    image: grafana/loki:2.2.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+
+  promtail:
+    image: grafana/promtail:2.2.1
+    volumes:
+      - logs:/var/log
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana:/var/lib/grafana
+    networks:
+      - loki
+
+volumes:
+  grafana:
+  logs:
