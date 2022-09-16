@@ -1,224 +1,315 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": {
-            "type": "grafana",
-            "uid": "-- Grafana --"
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "target": {
-            "limit": 100,
-            "matchAny": false,
-            "tags": [],
-            "type": "dashboard"
-          },
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
           "type": "dashboard"
-        }
-      ]
-    },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "id": 2,
-    "links": [
-      {
-        "asDropdown": false,
-        "icon": "external link",
-        "includeVars": false,
-        "keepTime": false,
-        "tags": [],
-        "targetBlank": false,
-        "title": "Complex example of formatting log messages",
-        "tooltip": "",
-        "type": "link",
-        "url": "https://stackoverflow.com/a/70000941/3850181"
+        },
+        "type": "dashboard"
       }
-    ],
-    "liveNow": false,
-    "panels": [
-      {
-        "datasource": {
-          "type": "loki",
-          "uid": "loki"
-        },
-        "gridPos": {
-          "h": 7,
-          "w": 24,
-          "x": 0,
-          "y": 0
-        },
-        "id": 2,
-        "options": {
-          "dedupStrategy": "none",
-          "enableLogDetails": true,
-          "prettifyLogMessage": false,
-          "showCommonLabels": false,
-          "showLabels": false,
-          "showTime": false,
-          "sortOrder": "Descending",
-          "wrapLogMessage": false
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "loki",
-              "uid": "loki"
-            },
-            "editorMode": "code",
-            "expr": "{container_name=~\"$Container\"} |~ \"$query\" | logfmt | level =~ \"$level\" ",
-            "queryType": "range",
-            "refId": "A"
-          }
-        ],
-        "title": "Simple",
-        "type": "logs"
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Complex example of formatting log messages",
+      "tooltip": "",
+      "type": "link",
+      "url": "https://stackoverflow.com/a/70000941/3850181"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
       },
-      {
-        "datasource": {
-          "type": "loki",
-          "uid": "loki"
-        },
-        "gridPos": {
-          "h": 7,
-          "w": 24,
-          "x": 0,
-          "y": 7
-        },
-        "id": 3,
-        "options": {
-          "dedupStrategy": "none",
-          "enableLogDetails": true,
-          "prettifyLogMessage": false,
-          "showCommonLabels": false,
-          "showLabels": false,
-          "showTime": false,
-          "sortOrder": "Descending",
-          "wrapLogMessage": false
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "loki",
-              "uid": "loki"
-            },
-            "editorMode": "code",
-            "expr": "{container_name=~\"$Container\"} |~ \"$query\" | logfmt | level =~ \"$level\" | logfmt\n  | line_format \"\\033[1;37m{{ .msg }}\\033[0m\\n\\033[1;30mlevel: \\033[0m\\033[2;37m{{.level}}\\033[0m \\033[1;30mtraceID: \\033[0m\\033[2;37m{{.traceID}}\\033[0m\"",
-            "queryType": "range",
-            "refId": "A"
-          }
-        ],
-        "title": "Rewrite format",
-        "type": "logs"
-      }
-    ],
-    "schemaVersion": 37,
-    "style": "dark",
-    "tags": [],
-    "templating": {
-      "list": [
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
         {
-          "current": {
-            "selected": true,
-            "text": [
-              "All"
-            ],
-            "value": [
-              "$__all"
-            ]
-          },
           "datasource": {
             "type": "loki",
             "uid": "loki"
           },
-          "definition": "label_values({}, container_name)",
-          "hide": 0,
-          "includeAll": true,
-          "multi": true,
-          "name": "Container",
-          "options": [],
-          "query": "label_values({}, container_name)",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "sort": 0,
-          "type": "query"
-        },
-        {
-          "current": {
-            "selected": false,
-            "text": "",
-            "value": ""
-          },
-          "hide": 0,
-          "label": "Search Term",
-          "name": "query",
-          "options": [
-            {
-              "selected": false,
-              "text": ".*",
-              "value": ".*"
-            }
-          ],
-          "query": "",
-          "skipUrlSync": false,
-          "type": "textbox"
-        },
-        {
-          "current": {
-            "selected": true,
-            "text": [
-              "debug"
-            ],
-            "value": [
-              "debug"
-            ]
-          },
-          "hide": 0,
-          "includeAll": true,
-          "multi": true,
-          "name": "level",
-          "options": [
-            {
-              "selected": false,
-              "text": "All",
-              "value": "$__all"
-            },
-            {
-              "selected": true,
-              "text": "debug",
-              "value": "debug"
-            },
-            {
-              "selected": false,
-              "text": "warn",
-              "value": "warn"
-            },
-            {
-              "selected": false,
-              "text": "error",
-              "value": "error"
-            }
-          ],
-          "query": "debug,warn,error",
-          "queryValue": "",
-          "skipUrlSync": false,
-          "type": "custom"
+          "editorMode": "code",
+          "expr": "{container_name=~\"$Container\"} |~ \"$query\" | logfmt | level =~ \"$level\" ",
+          "queryType": "range",
+          "refId": "A"
         }
-      ]
+      ],
+      "title": "Simple",
+      "type": "logs"
     },
-    "time": {
-      "from": "now-6h",
-      "to": "now"
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 3,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{container_name=~\"$Container\"} |~ \"$query\" | logfmt | level =~ \"$level\" | logfmt\n  | line_format \"\\033[1;37m{{ .msg }}\\033[0m\\n\\033[1;30mlevel: \\033[0m\\033[2;37m{{.level}}\\033[0m \\033[1;30mtraceID: \\033[0m\\033[2;37m{{.traceID}}\\033[0m\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Rewrite format",
+      "type": "logs"
     },
-    "timepicker": {},
-    "timezone": "",
-    "title": "Demo Logs",
-    "uid": "qjsMPnn4k",
-    "version": 4,
-    "weekStart": ""
-  }
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({container_name=~\"$Container\"} |~ \"$query\" | logfmt | level =~ \"$level\" | logfmt | __error__=`` [$__interval])) by (level)",
+          "legendFormat": "{{level}}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Log level chart",
+      "type": "timeseries"
+    }
+  ],
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "definition": "label_values({}, container_name)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "Container",
+        "options": [],
+        "query": "label_values({}, container_name)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "hide": 0,
+        "label": "Search Term",
+        "name": "query",
+        "options": [
+          {
+            "selected": true,
+            "text": ".*",
+            "value": ".*"
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "debug"
+          ],
+          "value": [
+            "debug"
+          ]
+        },
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "level",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": true,
+            "text": "debug",
+            "value": "debug"
+          },
+          {
+            "selected": false,
+            "text": "warn",
+            "value": "warn"
+          },
+          {
+            "selected": false,
+            "text": "error",
+            "value": "error"
+          }
+        ],
+        "query": "debug,warn,error",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Demo Logs",
+  "uid": "qjsMPnn4k",
+  "version": 1,
+  "weekStart": ""
+}
