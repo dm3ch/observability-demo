@@ -1,0 +1,224 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 2,
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Complex example of formatting log messages",
+        "tooltip": "",
+        "type": "link",
+        "url": "https://stackoverflow.com/a/70000941/3850181"
+      }
+    ],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "dedupStrategy": "none",
+          "enableLogDetails": true,
+          "prettifyLogMessage": false,
+          "showCommonLabels": false,
+          "showLabels": false,
+          "showTime": false,
+          "sortOrder": "Descending",
+          "wrapLogMessage": false
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "loki"
+            },
+            "editorMode": "code",
+            "expr": "{container_name=~\"$Container\"} |~ \"$query\" | logfmt | level =~ \"$level\" ",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Simple",
+        "type": "logs"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 24,
+          "x": 0,
+          "y": 7
+        },
+        "id": 3,
+        "options": {
+          "dedupStrategy": "none",
+          "enableLogDetails": true,
+          "prettifyLogMessage": false,
+          "showCommonLabels": false,
+          "showLabels": false,
+          "showTime": false,
+          "sortOrder": "Descending",
+          "wrapLogMessage": false
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "loki"
+            },
+            "editorMode": "code",
+            "expr": "{container_name=~\"$Container\"} |~ \"$query\" | logfmt | level =~ \"$level\" | logfmt\n  | line_format \"\\033[1;37m{{ .msg }}\\033[0m\\n\\033[1;30mlevel: \\033[0m\\033[2;37m{{.level}}\\033[0m \\033[1;30mtraceID: \\033[0m\\033[2;37m{{.traceID}}\\033[0m\"",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Rewrite format",
+        "type": "logs"
+      }
+    ],
+    "schemaVersion": 37,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": true,
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "definition": "label_values({}, container_name)",
+          "hide": 0,
+          "includeAll": true,
+          "multi": true,
+          "name": "Container",
+          "options": [],
+          "query": "label_values({}, container_name)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "",
+            "value": ""
+          },
+          "hide": 0,
+          "label": "Search Term",
+          "name": "query",
+          "options": [
+            {
+              "selected": false,
+              "text": ".*",
+              "value": ".*"
+            }
+          ],
+          "query": "",
+          "skipUrlSync": false,
+          "type": "textbox"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": [
+              "debug"
+            ],
+            "value": [
+              "debug"
+            ]
+          },
+          "hide": 0,
+          "includeAll": true,
+          "multi": true,
+          "name": "level",
+          "options": [
+            {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
+            {
+              "selected": true,
+              "text": "debug",
+              "value": "debug"
+            },
+            {
+              "selected": false,
+              "text": "warn",
+              "value": "warn"
+            },
+            {
+              "selected": false,
+              "text": "error",
+              "value": "error"
+            }
+          ],
+          "query": "debug,warn,error",
+          "queryValue": "",
+          "skipUrlSync": false,
+          "type": "custom"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Demo Logs",
+    "uid": "qjsMPnn4k",
+    "version": 4,
+    "weekStart": ""
+  }
